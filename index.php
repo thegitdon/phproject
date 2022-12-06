@@ -3,7 +3,7 @@
 include("db.php");
 include("header.php")
 ?>
-<div class="container p-4">
+<div class="container p-2">
     <div class="row">
         <div class="col-md-4">
             <!---->
@@ -18,13 +18,16 @@ include("header.php")
             } ?>
 
             <div class="card card-body">
-                <form action="add.php" method="POST">
+                <form action="add.php" method="POST" enctype="multipart/form-data">
                     <div class="form-group">
                         <!--se captura name="title" para transacciones-->
                         <input type="text" name="title" class="form-control" placeholder="Task Title" autofocus>
                     </div>
                     <div class="form-group">
                         <textarea name="description" rows="3" class="form-control" placeholder="Task Description"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <input type="file" name="picture">
                     </div>
                     <input type="submit" name="save_task" class="btn btn-success btn-block" value="Save Task">
                 </form>
@@ -37,6 +40,7 @@ include("header.php")
                         <th>Title</th>
                         <th>Description</th>
                         <th>Created At</th>
+                        <th>Photo</th>
                         <th>Action</th>
                     </tr>
                 </thead>
@@ -44,13 +48,17 @@ include("header.php")
 
                     <?php
                     $query = "SELECT * FROM task";
-                    $result_tasks = mysqli_query($conn, $query);
+                    //$result_tasks = mysqli_query($conn, $query);
+                    $res = $conn->query($query);
+
                     //recorrer uno a uno
-                    while ($row = mysqli_fetch_assoc($result_tasks)) { ?>
+                    //while ($row = mysqli_fetch_assoc($result_tasks)) {
+                    while ($row = $res->fetch_assoc()) { ?>
                         <tr>
-                            <td><?php echo $row['title']; ?></td>
+                            <td><?php echo $row['title'] ?></td>
                             <td><?php echo $row['description']; ?></td>
-                            <td><?php echo $row['created_at']; ?></td>
+                            <td><?php echo $row['fecha_crea']; ?></td>
+                            <td><img style="width: 150px;" src="data:image/jpg;charset=utf8;base64,<?php echo base64_encode($row['picture']) ?>" alt=""></td>
                             <td>
                                 <!--if (editar o eliminar) {necesito capturar "id"}-->
                                 <a href="edit.php?id=<?php echo $row['id'] ?>" class="btn btn-secondary">
@@ -61,8 +69,10 @@ include("header.php")
                                 </a>
                             </td>
                         </tr>
-                    <?php } ?>
+
                 </tbody>
+            <?php } ?>
+
             </table>
         </div>
     </div>

@@ -26,7 +26,7 @@ if (isset($_POST['update'])) {
 ?>
 
 <?php include("header.php") ?>
-<div class="container p-4">
+<div class="container p-2">
     <div class="row">
         <div class="col-md-4 mx-auto">
             <div class="card card-body">
@@ -38,6 +38,9 @@ if (isset($_POST['update'])) {
                     </div>
                     <div class="form-group">
                         <textarea name="description" class="form-control" rows="10"><?php echo $description; ?></textarea>
+                    </div>
+                    <div class="form-group">
+                        <input type="file" name="picture" value="">
                     </div>
                     <button class="btn btn-success" name="update">
                         Update
