@@ -17,9 +17,14 @@ error_reporting(0);
         header("Location: login.php");
     }
 }*/
+echo $_SESSION['rol'];
 if (!isset($_SESSION['uname'])) {
     //header("Location: login.php");
     //echo "OJO";
+    header("Location: login.php");
+    die();
+}
+if (isset($_SESSION['uname']) && $_SESSION['rol'] != 1) {
     header("Location: login.php");
     die();
 }

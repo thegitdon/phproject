@@ -9,6 +9,22 @@
 </head>
 
 <body>
+    <?php
+    session_start();
+    error_reporting(0);
+
+    if (isset($_SESSION['uname'])) {
+        //header("Location: login.php");
+        //echo "OJO";
+        if ($_SESSION['rol'] == 1) {
+            header("Location: index.php");
+            die();
+        }
+        if ($_SESSION['rol'] == 2) {
+            header("Location: idrols.php");
+            die();
+        }
+    } ?>
     <form action="action_page.php" method="post">
         <div class="container">
             <label for="uname"><b>Username</b></label>

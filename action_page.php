@@ -40,7 +40,8 @@ function method_name()
     $result = $conn->query($query);
     //$row = mysqli_num_rows($result);
     $row = mysqli_fetch_array($result);
-    if ($row) {
+    $_SESSION['rol'] = $row['id_rol'];
+    if ($row['id_rol'] == 1) {
         header('Location: index.php');
         //if ($row['id_rol'] == 1) {
         /*if ($row == true) {
@@ -59,6 +60,8 @@ function method_name()
     }*/ /*else if ($row['id_rol'] == 2) {
         header('Location: idrols.php');
     } */
+    } else if ($row['id_rol'] == 2) {
+        header('Location: idrols.php');
     } else {
         header('Location: login.php');
         session_destroy();
