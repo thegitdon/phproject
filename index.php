@@ -3,6 +3,30 @@
 include("db.php");
 include("header.php")
 ?>
+<?php
+
+session_start();
+error_reporting(0);
+//identificar usuario por medio de...
+// $varsesion = $_SESSION['uname'];
+
+/*if (!isset($_SESSION['rol'])) {
+    header("Location: login.php");
+} else {
+    if ($_SESSION['rol'] != 1) {
+        header("Location: login.php");
+    }
+}*/
+if (!isset($_SESSION['uname'])) {
+    //header("Location: login.php");
+    //echo "OJO";
+    header("Location: login.php");
+    die();
+}
+
+
+?>
+<h2>Bienve <?php echo $_SESSION['uname'] ?></h2>
 <div class="container p-2">
     <div class="row">
         <div class="col-md-4">
@@ -30,6 +54,7 @@ include("header.php")
                         <input type="file" name="picture">
                     </div>
                     <input type="submit" name="save_task" class="btn btn-success btn-block" value="Save Task">
+                    <a href="logout.php">Bye!</a>
                 </form>
             </div>
         </div>
@@ -53,6 +78,7 @@ include("header.php")
 
                     //recorrer uno a uno
                     //while ($row = mysqli_fetch_assoc($result_tasks)) {
+                    //$row = mysqli_fetch_array($res); if relaciones
                     while ($row = $res->fetch_assoc()) { ?>
                         <tr>
                             <td><?php echo $row['title'] ?></td>
@@ -69,10 +95,8 @@ include("header.php")
                                 </a>
                             </td>
                         </tr>
-
+                    <?php } ?>
                 </tbody>
-            <?php } ?>
-
             </table>
         </div>
     </div>
